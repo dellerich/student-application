@@ -1,3 +1,12 @@
+package edu.javacourse.studentorder;
+
+import edu.javacourse.studentorder.domain.*;
+import mail.MailSender;
+import validator.ChildrenValidator;
+import validator.CityRegisterValidator;
+import validator.StudentValidator;
+import validator.WeddingValidator;
+
 public class StudentOrderValidator {
 
     public static void main(String[] args) {
@@ -9,14 +18,13 @@ public class StudentOrderValidator {
 
         while(true) {
                 StudentOrder so = readStudentOrder();
-                System.out.println("Start");
                 if(so == null) {
                     break;
                 }
-                System.out.println("Finish");
                 AnswerCityRegister cityAnswer = checkCityRegister(so);
                 if(!cityAnswer.success){
-                    continue;
+                    //continue;
+                    break;
                 }
                 AnswerWedding wedAnswer = checkWedding(so);
                 AnswerChildren childAnswer = checkChildren(so);
@@ -24,40 +32,38 @@ public class StudentOrderValidator {
 
                 sendMail(so);
         }
-        System.out.println("Finish2");
     }
 
 
     static StudentOrder readStudentOrder(){
         StudentOrder so = new StudentOrder();
-        return null;
+        return so;
     }
 
     static AnswerCityRegister checkCityRegister(StudentOrder so){
-        System.out.println("checkCityRegister is running");
-        AnswerCityRegister ans = new AnswerCityRegister();
-        ans.success = false;
-        return ans;
+        //Создаём экземпляры валидатора
+        CityRegisterValidator crv1 = new CityRegisterValidator();
+        //Инициализируем его экземпляр поля
+        crv1.hostName = "Host1";
+        AnswerCityRegister ans1 = crv1.checkCityRegister(so);
+        return ans1;
     }
 
     static AnswerWedding checkWedding(StudentOrder so){
-        System.out.println("checkMarrige is running");
-        AnswerWedding ans = new AnswerWedding();
-        return ans;
+        WeddingValidator wed = new WeddingValidator();
+        return wed.checkWedding(so);
     }
 
     static AnswerChildren checkChildren(StudentOrder so){
-        System.out.println("checkChildren is running");
-        AnswerChildren ans = new AnswerChildren();
-        return ans;
+        ChildrenValidator cv = new ChildrenValidator();
+        return cv.checkChildren(so);
     }
 
     static AnswerStudent checkStudent(StudentOrder so){
-        System.out.println("Студенты проверяются");
-        return new AnswerStudent();
+        return new StudentValidator().checkStudent(so);
     }
 
     static void sendMail(StudentOrder so){
-        System.out.println("Почта отправлена");
+        new MailSender().sendMail(so);
     }
 }
