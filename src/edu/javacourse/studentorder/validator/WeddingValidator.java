@@ -1,4 +1,4 @@
-package validator;
+package edu.javacourse.studentorder.validator;
 
 import edu.javacourse.studentorder.domain.AnswerWedding;
 import edu.javacourse.studentorder.domain.StudentOrder;

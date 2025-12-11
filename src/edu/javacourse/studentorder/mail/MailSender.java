@@ -1,4 +1,4 @@
-package mail;
+package edu.javacourse.studentorder.mail;
 
 import edu.javacourse.studentorder.domain.StudentOrder;
 

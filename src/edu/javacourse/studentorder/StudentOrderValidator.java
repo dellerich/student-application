@@ -1,11 +1,11 @@
 package edu.javacourse.studentorder;
 
 import edu.javacourse.studentorder.domain.*;
-import mail.MailSender;
-import validator.ChildrenValidator;
-import validator.CityRegisterValidator;
-import validator.StudentValidator;
-import validator.WeddingValidator;
+import edu.javacourse.studentorder.mail.MailSender;
+import edu.javacourse.studentorder.validator.ChildrenValidator;
+import edu.javacourse.studentorder.validator.CityRegisterValidator;
+import edu.javacourse.studentorder.validator.StudentValidator;
+import edu.javacourse.studentorder.validator.WeddingValidator;
 
 public class StudentOrderValidator {
 
