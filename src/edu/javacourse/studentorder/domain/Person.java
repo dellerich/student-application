@@ -2,21 +2,23 @@ package edu.javacourse.studentorder.domain;
 
 import java.time.LocalDate;
 
-public abstract class Person extends Object{
-    protected String surName;     //фамилия
-    protected String givenName;   //имя
+public abstract class Person {
+    private String surName;     //фамилия
+    private String givenName;   //имя
     private String patronymic;  //отчество
     private LocalDate dateOfBirth;
     private Address address;
 
-    //Конструктор или по другому метод, который ничего не возвращает
     public Person(){
-        System.out.println("Person is created");
+
+    }
+    public Person(String surName, String givenName, String patronymic, LocalDate dateOfBirth) {
+        this.surName = surName;
+        this.givenName = givenName;
+        this.patronymic = patronymic;
+        this.dateOfBirth = dateOfBirth;
     }
 
-    public String getPersonString(){
-        return surName + " " + givenName;
-    }
     //Гетеры нужны для возвращения измененного значения, а сетеры, что устанавливать эти самые значения
     public String getSurName() {
         return surName;

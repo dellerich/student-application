@@ -8,6 +8,10 @@ public class Child extends Person {
     private LocalDate issueDate;
     private String issueDepartment; //место выдачи
 
+    public Child(String surName, String givenName, String patronymic, LocalDate dateOfBirth) {
+        super(surName, givenName, patronymic, dateOfBirth);
+    }
+
     //Гетеры нужны для возвращения измененного значения, а сетеры, что устанавливать эти самые значения
     public String getCertificateNumber() {
         return certificateNumber;
@@ -32,4 +36,6 @@ public class Child extends Person {
     public void setIssueDepartment(String issueDepartment) {
         this.issueDepartment = issueDepartment;
     }
+
+    public void cr(){}
 }

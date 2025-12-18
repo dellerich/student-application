@@ -1,6 +1,4 @@
-package edu.javacourse.studentorder.domain.other;
-
-import edu.javacourse.studentorder.domain.Person;
+package edu.javacourse.studentorder.domain;
 
 import java.time.LocalDate;
 
@@ -13,14 +11,14 @@ public class Adult extends Person {
     private String university;
     private String studentId;
 
-    //Переопределение метода из класса родителя Person. Дополнен добавление passportNumber
-    public String getPersonString(){
-        return surName + " " + givenName + ":" + passportNumber;
+    public Adult(){
+
     }
-    //Гетеры нужны для возвращения измененного значения, а сетеры, что устанавливать эти самые значения
-    public String getPassportSeria() {
-        return passportSeria;
+
+    public Adult(String surName, String givenName, String patronymic, LocalDate dateOfBirth) {
+        super(surName, givenName, patronymic, dateOfBirth);
     }
+
 
     public void setPassportSeria(String passportSeria) {
         this.passportSeria = passportSeria;
