@@ -2,13 +2,17 @@ package edu.javacourse.studentorder.domain;
 
 import java.time.LocalDate;
 
-public class Person extends Object{
+public abstract class Person extends Object{
     protected String surName;     //фамилия
     protected String givenName;   //имя
     private String patronymic;  //отчество
     private LocalDate dateOfBirth;
     private Address address;
 
+    //Конструктор или по другому метод, который ничего не возвращает
+    public Person(){
+        System.out.println("Person is created");
+    }
 
     public String getPersonString(){
         return surName + " " + givenName;

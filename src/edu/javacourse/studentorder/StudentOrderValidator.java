@@ -9,61 +9,76 @@ import edu.javacourse.studentorder.validator.WeddingValidator;
 
 public class StudentOrderValidator {
 
+    private CityRegisterValidator cityRegisterVal;
+    private WeddingValidator weddingVal;
+    private ChildrenValidator childrenVal;
+    private StudentValidator studentVal;
+    private MailSender mailSender;
+
+    //Конструктор, где делаются все необходимые присваивания
+    public StudentOrderValidator(){
+        cityRegisterVal = new CityRegisterValidator();
+        weddingVal = new WeddingValidator();
+        childrenVal = new ChildrenValidator();
+        studentVal = new StudentValidator();
+        mailSender = new MailSender();
+    }
+    //static - метод принадлежит не какому-то конкретному объекту, а всему классу целиком
     public static void main(String[] args) {
-        checkAll();
+        StudentOrderValidator sov = new StudentOrderValidator();
+        sov.checkAll();
     }
 
-    static void checkAll(){
+    public void checkAll(){
         //читаем студенческую заявку и пытаемся её проверить
+            StudentOrder[] soArray = readStudentOrders();
 
-        while(true) {
-                StudentOrder so = readStudentOrder();
-                if(so == null) {
-                    break;
-                }
-                AnswerCityRegister cityAnswer = checkCityRegister(so);
-                if(!cityAnswer.success){
-                    //continue;
-                    break;
-                }
-                AnswerWedding wedAnswer = checkWedding(so);
-                AnswerChildren childAnswer = checkChildren(so);
-                AnswerStudent studentAnswer = checkStudent(so);
+//            for(int c = 0; c <soArray.length; c++){
+//                System.out.println();
+//                checkOneOrder(soArray[c]);
+//            }
 
-                sendMail(so);
+            for(StudentOrder so : soArray){
+                System.out.println();
+                checkOneOrder(so);
+            }
+    }
+
+    public StudentOrder[] readStudentOrders(){
+        StudentOrder[] soArray = new StudentOrder[3];
+
+        for(int c = 0; c < soArray.length; c++ ) {
+            soArray[c] = SaveStudentOrder.buildsStudentOrder(c);
         }
+
+        return soArray;
+    }
+    public void checkOneOrder(StudentOrder so){
+        AnswerCityRegister cityAnswer = checkCityRegister(so);
+        AnswerWedding wedAnswer = checkWedding(so);
+        AnswerChildren childAnswer = checkChildren(so);
+        AnswerStudent studentAnswer = checkStudent(so);
+
+        sendMail(so);
     }
 
-
-    static StudentOrder readStudentOrder(){
-        StudentOrder so = new StudentOrder();
-        return so;
+    public AnswerCityRegister checkCityRegister(StudentOrder so){
+        return cityRegisterVal.checkCityRegister(so);
     }
 
-    static AnswerCityRegister checkCityRegister(StudentOrder so){
-        //Создаём экземпляры валидатора
-        CityRegisterValidator crv1 = new CityRegisterValidator();
-        //Инициализируем его экземпляр поля
-        crv1.hostName = "Host1";
-        AnswerCityRegister ans1 = crv1.checkCityRegister(so);
-        return ans1;
+    public AnswerWedding checkWedding(StudentOrder so){
+        return weddingVal.checkWedding(so);
     }
 
-    static AnswerWedding checkWedding(StudentOrder so){
-        WeddingValidator wed = new WeddingValidator();
-        return wed.checkWedding(so);
+    public AnswerChildren checkChildren(StudentOrder so){
+        return childrenVal.checkChildren(so);
     }
 
-    static AnswerChildren checkChildren(StudentOrder so){
-        ChildrenValidator cv = new ChildrenValidator();
-        return cv.checkChildren(so);
+    public AnswerStudent checkStudent(StudentOrder so){
+        return studentVal.checkStudent(so);
     }
 
-    static AnswerStudent checkStudent(StudentOrder so){
-        return new StudentValidator().checkStudent(so);
-    }
-
-    static void sendMail(StudentOrder so){
-        new MailSender().sendMail(so);
+    public void sendMail(StudentOrder so){
+        mailSender.sendMail(so);
     }
 }
